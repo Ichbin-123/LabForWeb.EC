@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LabForWeb.EC.DAL.Migrations
 {
     [DbContext(typeof(ECContext))]
-    [Migration("20250630010900_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20250630105457_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,7 +61,7 @@ namespace LabForWeb.EC.DAL.Migrations
                     b.HasIndex("Nome")
                         .IsUnique();
 
-                    b.ToTable("Categoria");
+                    b.ToTable("Categorie");
                 });
 
             modelBuilder.Entity("LabForWeb.EC.DAL.Models.Indirizzo", b =>
@@ -113,7 +113,7 @@ namespace LabForWeb.EC.DAL.Migrations
 
                     b.HasIndex("UtenteId");
 
-                    b.ToTable("Indirizzo");
+                    b.ToTable("Indirizzi");
                 });
 
             modelBuilder.Entity("LabForWeb.EC.DAL.Models.Ordine", b =>
@@ -150,7 +150,7 @@ namespace LabForWeb.EC.DAL.Migrations
                     b.HasIndex("Numero", "Anno")
                         .IsUnique();
 
-                    b.ToTable("Ordine");
+                    b.ToTable("Ordini");
                 });
 
             modelBuilder.Entity("LabForWeb.EC.DAL.Models.OrdineDettaglio", b =>
@@ -177,7 +177,7 @@ namespace LabForWeb.EC.DAL.Migrations
                     b.HasIndex("OrdineId", "ProdottoId")
                         .IsUnique();
 
-                    b.ToTable("OrdineDettaglio");
+                    b.ToTable("OrdineDettagli");
                 });
 
             modelBuilder.Entity("LabForWeb.EC.DAL.Models.PartitaIVA", b =>
@@ -203,7 +203,7 @@ namespace LabForWeb.EC.DAL.Migrations
                     b.HasIndex("NumeroPIVA")
                         .IsUnique();
 
-                    b.ToTable("PartitaIVA");
+                    b.ToTable("PartitaIVAs");
                 });
 
             modelBuilder.Entity("LabForWeb.EC.DAL.Models.Prodotto", b =>
@@ -246,7 +246,7 @@ namespace LabForWeb.EC.DAL.Migrations
 
                     b.HasIndex("Visibile");
 
-                    b.ToTable("Prodotto");
+                    b.ToTable("Prodotti");
                 });
 
             modelBuilder.Entity("LabForWeb.EC.DAL.Models.Utente", b =>
@@ -288,7 +288,7 @@ namespace LabForWeb.EC.DAL.Migrations
 
                     b.HasIndex("Cognome");
 
-                    b.ToTable("Utente");
+                    b.ToTable("Utenti");
                 });
 
             modelBuilder.Entity("CategoriaProdotto", b =>

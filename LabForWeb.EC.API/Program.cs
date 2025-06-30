@@ -1,4 +1,7 @@
 
+using LabForWeb.EC.DAL;
+using Microsoft.EntityFrameworkCore;
+
 namespace LabForWeb.EC.API
 {
     public class Program
@@ -6,6 +9,13 @@ namespace LabForWeb.EC.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            #region
+            builder.Services.AddDbContext<ECContext>(options =>
+                options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("default"))
+            );
+            #endregion
+
 
             // Add services to the container.
 
@@ -35,6 +45,10 @@ namespace LabForWeb.EC.API
 
 
             app.MapControllers();
+
+            #region Applicazione Migrazioni
+            
+            #endregion
 
             app.Run();
         }

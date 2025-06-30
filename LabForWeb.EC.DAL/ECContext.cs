@@ -21,13 +21,13 @@ public class ECContext : DbContext
     public DbSet<Indirizzo> Indirizzi => Set<Indirizzo>();
     public DbSet<Categoria> Categorie => Set<Categoria>();
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseLazyLoadingProxies().UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;Initial Catalog=eCommerce");
-        }
-    }
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    if (!optionsBuilder.IsConfigured)
+    //    {
+    //        optionsBuilder.UseLazyLoadingProxies().UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;Initial Catalog=eCommerce");
+    //    }
+    //}
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

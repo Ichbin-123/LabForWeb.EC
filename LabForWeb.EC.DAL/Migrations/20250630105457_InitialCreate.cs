@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LabForWeb.EC.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Categoria",
+                name: "Categorie",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -21,11 +21,11 @@ namespace LabForWeb.EC.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categoria", x => x.Id);
+                    table.PrimaryKey("PK_Categorie", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Prodotto",
+                name: "Prodotti",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -40,11 +40,11 @@ namespace LabForWeb.EC.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Prodotto", x => x.Id);
+                    table.PrimaryKey("PK_Prodotti", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Utente",
+                name: "Utenti",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -58,7 +58,7 @@ namespace LabForWeb.EC.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Utente", x => x.Id);
+                    table.PrimaryKey("PK_Utenti", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -72,21 +72,21 @@ namespace LabForWeb.EC.DAL.Migrations
                 {
                     table.PrimaryKey("PK_CategoriaProdotto", x => new { x.CategorieId, x.ProdottiId });
                     table.ForeignKey(
-                        name: "FK_CategoriaProdotto_Categoria_CategorieId",
+                        name: "FK_CategoriaProdotto_Categorie_CategorieId",
                         column: x => x.CategorieId,
-                        principalTable: "Categoria",
+                        principalTable: "Categorie",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CategoriaProdotto_Prodotto_ProdottiId",
+                        name: "FK_CategoriaProdotto_Prodotti_ProdottiId",
                         column: x => x.ProdottiId,
-                        principalTable: "Prodotto",
+                        principalTable: "Prodotti",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Indirizzo",
+                name: "Indirizzi",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -102,17 +102,17 @@ namespace LabForWeb.EC.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Indirizzo", x => x.Id);
+                    table.PrimaryKey("PK_Indirizzi", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Indirizzo_Utente_UtenteId",
+                        name: "FK_Indirizzi_Utenti_UtenteId",
                         column: x => x.UtenteId,
-                        principalTable: "Utente",
+                        principalTable: "Utenti",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PartitaIVA",
+                name: "PartitaIVAs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -122,17 +122,17 @@ namespace LabForWeb.EC.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PartitaIVA", x => x.Id);
+                    table.PrimaryKey("PK_PartitaIVAs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PartitaIVA_Utente_Id",
+                        name: "FK_PartitaIVAs_Utenti_Id",
                         column: x => x.Id,
-                        principalTable: "Utente",
+                        principalTable: "Utenti",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ordine",
+                name: "Ordini",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -145,17 +145,17 @@ namespace LabForWeb.EC.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ordine", x => x.Id);
+                    table.PrimaryKey("PK_Ordini", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ordine_Indirizzo_IndirizzoId",
+                        name: "FK_Ordini_Indirizzi_IndirizzoId",
                         column: x => x.IndirizzoId,
-                        principalTable: "Indirizzo",
+                        principalTable: "Indirizzi",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrdineDettaglio",
+                name: "OrdineDettagli",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -166,26 +166,20 @@ namespace LabForWeb.EC.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrdineDettaglio", x => x.Id);
+                    table.PrimaryKey("PK_OrdineDettagli", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrdineDettaglio_Ordine_OrdineId",
+                        name: "FK_OrdineDettagli_Ordini_OrdineId",
                         column: x => x.OrdineId,
-                        principalTable: "Ordine",
+                        principalTable: "Ordini",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrdineDettaglio_Prodotto_ProdottoId",
+                        name: "FK_OrdineDettagli_Prodotti_ProdottoId",
                         column: x => x.ProdottoId,
-                        principalTable: "Prodotto",
+                        principalTable: "Prodotti",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Categoria_Nome",
-                table: "Categoria",
-                column: "Nome",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_CategoriaProdotto_ProdottiId",
@@ -193,66 +187,72 @@ namespace LabForWeb.EC.DAL.Migrations
                 column: "ProdottiId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Indirizzo_CAP",
-                table: "Indirizzo",
-                column: "CAP");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Indirizzo_UtenteId",
-                table: "Indirizzo",
-                column: "UtenteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ordine_Data",
-                table: "Ordine",
-                column: "Data");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ordine_IndirizzoId",
-                table: "Ordine",
-                column: "IndirizzoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ordine_Numero_Anno",
-                table: "Ordine",
-                columns: new[] { "Numero", "Anno" },
+                name: "IX_Categorie_Nome",
+                table: "Categorie",
+                column: "Nome",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ordine_Stato",
-                table: "Ordine",
-                column: "Stato");
+                name: "IX_Indirizzi_CAP",
+                table: "Indirizzi",
+                column: "CAP");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrdineDettaglio_OrdineId_ProdottoId",
-                table: "OrdineDettaglio",
+                name: "IX_Indirizzi_UtenteId",
+                table: "Indirizzi",
+                column: "UtenteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrdineDettagli_OrdineId_ProdottoId",
+                table: "OrdineDettagli",
                 columns: new[] { "OrdineId", "ProdottoId" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrdineDettaglio_ProdottoId",
-                table: "OrdineDettaglio",
+                name: "IX_OrdineDettagli_ProdottoId",
+                table: "OrdineDettagli",
                 column: "ProdottoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PartitaIVA_NumeroPIVA",
-                table: "PartitaIVA",
+                name: "IX_Ordini_Data",
+                table: "Ordini",
+                column: "Data");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ordini_IndirizzoId",
+                table: "Ordini",
+                column: "IndirizzoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ordini_Numero_Anno",
+                table: "Ordini",
+                columns: new[] { "Numero", "Anno" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ordini_Stato",
+                table: "Ordini",
+                column: "Stato");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PartitaIVAs_NumeroPIVA",
+                table: "PartitaIVAs",
                 column: "NumeroPIVA",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Prodotto_Attivo",
-                table: "Prodotto",
+                name: "IX_Prodotti_Attivo",
+                table: "Prodotti",
                 column: "Attivo");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Prodotto_Visibile",
-                table: "Prodotto",
+                name: "IX_Prodotti_Visibile",
+                table: "Prodotti",
                 column: "Visibile");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Utente_Cognome",
-                table: "Utente",
+                name: "IX_Utenti_Cognome",
+                table: "Utenti",
                 column: "Cognome");
         }
 
@@ -263,25 +263,25 @@ namespace LabForWeb.EC.DAL.Migrations
                 name: "CategoriaProdotto");
 
             migrationBuilder.DropTable(
-                name: "OrdineDettaglio");
+                name: "OrdineDettagli");
 
             migrationBuilder.DropTable(
-                name: "PartitaIVA");
+                name: "PartitaIVAs");
 
             migrationBuilder.DropTable(
-                name: "Categoria");
+                name: "Categorie");
 
             migrationBuilder.DropTable(
-                name: "Ordine");
+                name: "Ordini");
 
             migrationBuilder.DropTable(
-                name: "Prodotto");
+                name: "Prodotti");
 
             migrationBuilder.DropTable(
-                name: "Indirizzo");
+                name: "Indirizzi");
 
             migrationBuilder.DropTable(
-                name: "Utente");
+                name: "Utenti");
         }
     }
 }
