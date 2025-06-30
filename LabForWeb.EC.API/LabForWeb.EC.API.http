@@ -1,0 +1,6 @@
+@LabForWeb.EC.API_HostAddress = http://localhost:5017
+
+GET {{LabForWeb.EC.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
