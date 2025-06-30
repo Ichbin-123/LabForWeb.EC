@@ -1,7 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace LabForWeb.EC.DAL.Models;
 
+//[Index(nameof(Stato))]
+//[Index(nameof(Data))]
+//[Index(nameof(Numero), nameof(Anno), IsUnique = true) ]
 public class Ordine
 {
     public int Id { get; set; }

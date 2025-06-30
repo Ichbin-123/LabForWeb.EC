@@ -13,6 +13,14 @@ public class ECContext : DbContext
     {
     }
 
+    public DbSet<Utente> Utenti => Set<Utente>();
+    public DbSet<Prodotto> Prodotti => Set<Prodotto>();
+    public DbSet<PartitaIVA> PartitaIVAs => Set<PartitaIVA>();
+    public DbSet<OrdineDettaglio> OrdineDettagli => Set<OrdineDettaglio>();
+    public DbSet<Ordine> Ordini => Set<Ordine>();
+    public DbSet<Indirizzo> Indirizzi => Set<Indirizzo>();
+    public DbSet<Categoria> Categorie => Set<Categoria>();
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
