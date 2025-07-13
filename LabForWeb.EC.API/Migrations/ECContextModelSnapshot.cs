@@ -4,19 +4,16 @@ using LabForWeb.EC.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace LabForWeb.EC.DAL.Migrations
+namespace LabForWeb.EC.API.Migrations
 {
     [DbContext(typeof(ECContext))]
-    [Migration("20250630105457_InitialCreate")]
-    partial class InitialCreate
+    partial class ECContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,6 +59,23 @@ namespace LabForWeb.EC.DAL.Migrations
                         .IsUnique();
 
                     b.ToTable("Categorie");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nome = "Articoli Sportivi"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nome = "Elettromestici"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Nome = "Abbigliamento per la coppia"
+                        });
                 });
 
             modelBuilder.Entity("LabForWeb.EC.DAL.Models.Indirizzo", b =>
@@ -289,6 +303,18 @@ namespace LabForWeb.EC.DAL.Migrations
                     b.HasIndex("Cognome");
 
                     b.ToTable("Utenti");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            CodiceFiscale = "",
+                            Cognome = "Admin",
+                            Email = "admin@admin.com",
+                            Nome = "Admin",
+                            NotificheWA = true,
+                            Telefono = ""
+                        });
                 });
 
             modelBuilder.Entity("CategoriaProdotto", b =>

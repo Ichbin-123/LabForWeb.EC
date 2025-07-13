@@ -32,6 +32,43 @@ public class ECContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
+        modelBuilder.Entity<Utente>()
+            .HasData(
+                new Utente
+                {
+                    Id =2,
+			        Nome = "Admin",
+			        Cognome = "Admin",
+			        Email = "admin@admin.com",
+
+                    CodiceFiscale = "",
+			        Telefono = "",
+			        NotificheWA = true
+                }
+            );
+
+        modelBuilder.Entity<Categoria>()
+            .HasData(
+                    new Categoria
+                    {
+                        Id = 1,
+                        Nome = "Articoli Sportivi"
+                    },
+		            new Categoria
+                    {
+                        Id = 2,
+                        Nome = "Elettromestici"
+                    },
+		            new Categoria
+                    {
+                        Id = 3,
+                        Nome = "Abbigliamento per la coppia"
+                    }
+            );
+
+
+
         modelBuilder.Entity<Utente>(entity =>
         {
             entity.HasKey(e => e.Id); // PK tabella Utente

@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace LabForWeb.EC.DAL.Migrations
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace LabForWeb.EC.API.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -180,6 +182,21 @@ namespace LabForWeb.EC.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Categorie",
+                columns: new[] { "Id", "Nome" },
+                values: new object[,]
+                {
+                    { 1, "Articoli Sportivi" },
+                    { 2, "Elettromestici" },
+                    { 3, "Abbigliamento per la coppia" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Utenti",
+                columns: new[] { "Id", "CodiceFiscale", "Cognome", "Email", "Nome", "NotificheWA", "Telefono" },
+                values: new object[] { 2, "", "Admin", "admin@admin.com", "Admin", true, "" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CategoriaProdotto_ProdottiId",

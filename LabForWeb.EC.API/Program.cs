@@ -13,7 +13,7 @@ namespace LabForWeb.EC.API
 
             #region
             builder.Services.AddDbContext<ECContext>(options =>
-                options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("default"))
+                options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("default"), o => o.MigrationsAssembly("LabForWeb.EC.API"))
             );
             #endregion
 
