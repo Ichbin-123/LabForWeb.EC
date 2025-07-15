@@ -11,6 +11,17 @@ namespace LabForWeb.EC.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
+
             #region
             builder.Services.AddDbContext<ECContext>(options =>
                 options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("default"), o => o.MigrationsAssembly("LabForWeb.EC.API"))
@@ -41,6 +52,8 @@ namespace LabForWeb.EC.API
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("AllowAll");
 
             app.UseAuthorization();
 
