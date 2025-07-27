@@ -1,0 +1,56 @@
+﻿@using LabForWeb.MVC.Models
+@model ProdottoDTO
+
+<h3>Form nuovo prodotto</h3>
+<form asp-action="Create" method="post" enctype="multipart/form-data"> 
+    <div class="mb-3">
+        <label asp-for="Nome" class="form-label">Nome</label>
+        <input asp-for="Nome" type="text" class="form-control" placeholder="Nome..." />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DescrizioneBreve" class="form-label">Preview</label>
+        <input asp-for="DescrizioneBreve" type="text" class="form-control" placeholder="Preview..." />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Descrizione" class="form-label">Descrizione</label>
+        <textarea asp-for="Descrizione" rows="5" class="form-control" placeholder="Preview..."></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Giacenza" class="form-label">Giacenza</label>
+        <input asp-for="Giacenza" type="number" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Prezzo" class="form-label">Prezzo</label>
+        <input asp-for="Prezzo" type="number" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <input asp-for="Visibile" type="checkbox" class="form-check-input" />
+        <label asp-for="Visibile" class="form-check-label">Visibile</label>
+    </div>
+
+    <div class="mb-3">
+        <input asp-for="Attivo" type="checkbox" class="form-check-input" />
+        <label asp-for="Attivo" class="form-check-label">Attivo</label>
+    </div>
+
+    @*Qui mettiamo poi l'URL ma con caricamento dell'imamgine*@
+
+    <div class="mb-3">
+        <label asp-for="CategoriaID" class="form-label">Categoria</label>
+        <select class="form-select" asp-for="CategoriaID" asp-items="@((IEnumerable<SelectListItem>)ViewData["categorie"]!)">
+
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Immagine" class="form-label">Carica Immagine</label>
+        <input asp-for="Immagine" type="file" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Salva</button>
+</form>

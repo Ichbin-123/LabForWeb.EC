@@ -1,0 +1,38 @@
+﻿@model List<ProdottoModel>
+
+@* Blocco di codice C# su più righe *@
+@{
+    ViewData["Messaggio"] = ViewData["Messaggio"].ToString().ToUpper();
+    ViewData["Contatore"] = 67 * 9;
+}
+
+@* @Model.Count; *@
+
+<h1> Elenco Prodotti </h1>
+<p>@ViewData["Messaggio"]</p>
+<p>@ViewData["Contatore"]</p>
+
+<a class="btn btn-primary" asp-action="Create">Inserisci nuovo prodotto</a>
+
+<hr />
+
+@if (Model.Count == 0)
+{
+    <p>Il DA non contiene attualmente Prodotti </p>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var p in Model)
+        {
+            @* @if (p.Id % 2 == 0) *@
+            {
+                <li class="list-group-item @(p.Giacenza == 0 ? "rosso" : "")">@p.Nome</li>
+            }
+        }
+    </ul>
+}
+
+<hr />
+
+@Html.ActionLink("Vai qui", "Privacy", "Home", htmlAttributes: new { @alt = "Ciao", @title = "Vai alla pagina della privacy" })
