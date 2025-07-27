@@ -40,7 +40,7 @@ namespace LabForWeb.MVC.Controllers
                 {
                     var nuovaCategoria = new Data.Models.Categoria
                     {                        
-                        Nome = Char.ToUpper(categoria.Nome![0]) + categoria.Nome.Substring(1),
+                        Nome = Char.ToUpper(categoria.Nome![0]) + categoria.Nome.Substring(1).ToLower(),
                         Slug = categoria.Nome.ToLower()
                     };
 
