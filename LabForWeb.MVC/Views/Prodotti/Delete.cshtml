@@ -1,0 +1,10 @@
+﻿@model ProdottoModel
+
+<h1>Conferma Eliminazione</h1>
+<p>Sei sicuro di voler eliminare il prodotto <strong>@Model.Nome</strong>?</p>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Elimina</button>
+    <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Annulla</a>
+</form>

@@ -6,26 +6,31 @@
     <div class="mb-3">
         <label asp-for="Nome" class="form-label">Nome</label>
         <input asp-for="Nome" type="text" class="form-control" placeholder="Nome..." />
+        <span class="text-danger" asp-validation-for="Nome"></span>
     </div>
 
     <div class="mb-3">
         <label asp-for="DescrizioneBreve" class="form-label">Preview</label>
         <input asp-for="DescrizioneBreve" type="text" class="form-control" placeholder="Preview..." />
+        <span class="text-danger" asp-validation-for="DescrizioneBreve"></span>
     </div>
 
     <div class="mb-3">
         <label asp-for="Descrizione" class="form-label">Descrizione</label>
         <textarea asp-for="Descrizione" rows="5" class="form-control" placeholder="Preview..."></textarea>
+        <span class="text-danger" asp-validation-for="Descrizione"></span>
     </div>
 
     <div class="mb-3">
         <label asp-for="Giacenza" class="form-label">Giacenza</label>
         <input asp-for="Giacenza" type="number" class="form-control" />
+        <span class="text-danger" asp-validation-for="Giacenza"></span>
     </div>
 
     <div class="mb-3">
         <label asp-for="Prezzo" class="form-label">Prezzo</label>
         <input asp-for="Prezzo" type="number" class="form-control" />
+        <span class="text-danger" asp-validation-for="Prezzo"></span>
     </div>
 
     <div class="mb-3">
@@ -54,3 +59,9 @@
 
     <button type="submit" class="btn btn-success">Salva</button>
 </form>
+
+@section Scripts {
+@{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
+    }
+}

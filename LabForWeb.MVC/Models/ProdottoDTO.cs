@@ -6,21 +6,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 public class ProdottoDTO
 {
 
-    [Required]
+    [Required(ErrorMessage ="{0} obbligatorio")]
     [MaxLength(400)]
     public string? Nome { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "{0} obbligatorio")]
     [MaxLength(2000)]
     public string? DescrizioneBreve { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "{0} obbligatorio")]
     public string? Descrizione { get; set; } // Nvarchar(max) di default
 
-    [Required]
+    [Required(ErrorMessage = "{0} obbligatorio")]
     public short Giacenza { get; set; } = 0; // Levato ?
 
-    [Required]
+    [Required(ErrorMessage = "{0} obbligatorio")]
     public decimal Prezzo { get; set; }  // Levato ?
 
     [Required]

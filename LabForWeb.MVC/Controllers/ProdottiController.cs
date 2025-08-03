@@ -1,10 +1,12 @@
-﻿using LabForWeb.MVC.Models;
-using Microsoft.AspNetCore.Mvc;
-using LabForWeb.MVC.Data;
+﻿using LabForWeb.MVC.Data;
 using LabForWeb.MVC.Extensions;
-using System.Net;
-using Microsoft.EntityFrameworkCore;
+using LabForWeb.MVC.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System.IO;
+using System.Net;
+
 
 namespace LabForWeb.MVC.Controllers;
 
@@ -129,6 +131,7 @@ public class ProdottiController : Controller
 
             try
             {
+
                 var nuovoProdotto = new Data.Models.Prodotto
                 {
                     Nome = prodotto.Nome,
@@ -139,6 +142,27 @@ public class ProdottiController : Controller
                     Attivo = prodotto.Attivo,
                     Visibile = prodotto.Visibile,
                 };
+
+                // salvo il file su disco
+                if (prodotto.Immagine != null && prodotto.Immagine.Length > 0) 
+                    {
+                    var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot","uploads");
+                    Directory.CreateDirectory(uploadDir);
+
+                    var fileName = Path.GetFileName(prodotto.Immagine.FileName); // ciabatte_con_il_pelo.jpg
+                    var filePath = Path.Combine(uploadDir, fileName); // E:\LABFORWEB\Labforweb_CEMV\Blazor\Blazor_C\L003 - 2025.07.28\LabForWeb.EC\LabForWeb.MVC\wwwroot\uploads\ciabatte_con_il_pelo.jpg
+                    
+                    // Variante 1
+                    using var stream = new FileStream(filePath, FileMode.Create);
+                    await prodotto.Immagine.CopyToAsync(stream);
+
+                    // Variante 2
+                    // System.IO.File.WriteAllBytesAsync(filePath, prodotto.Immagine.);
+
+
+                    nuovoProdotto.ImageUrl = $"/uploads/{fileName}"; // Path.Combine("/uploads", fileName);
+                }
+
 
                 var cat = await _context.Categorie.SingleAsync(c => c.Id == prodotto.CategoriaID);
                 nuovoProdotto.Categorie.Add(cat);
@@ -161,6 +185,41 @@ public class ProdottiController : Controller
         {
             return View(prodotto);
         }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var prodotto = await _context.Prodotti.FindAsync(id);
+        if (prodotto == null) return NotFound();
+        return View(prodotto.ToProdottoModle()); // Devo farlo
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public async Task<IActionResult> DeletedConfirmed(int id)
+    {
+        var prodotto = await _context.Prodotti.FindAsync(id);
+        if (prodotto == null) return NotFound();
+        try
+        {
+            if (!string.IsNullOrEmpty(prodotto.ImageUrl) && prodotto.ImageUrl.StartsWith("/uploads"))
+            {
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot", prodotto.ImageUrl[1..]) ;
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath); // Cancella se esiste
+                }
+            }
+            _context.Prodotti.Remove(prodotto);
+
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+        return RedirectToAction("Index", "Home");
     }
 
 }
