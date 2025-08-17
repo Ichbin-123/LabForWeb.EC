@@ -12,9 +12,9 @@ public class ApplicationDbContext : IdentityDbContext
     }
 
     //
-    public DbSet<Utente> Utenti => Set<Utente>();
+    // public DbSet<Utente> Utenti => Set<Utente>(); // Abbiamo adesso ApplicationUser.cs
     public DbSet<Prodotto> Prodotti => Set<Prodotto>();
-    public DbSet<PartitaIVA> PartitaIVAs => Set<PartitaIVA>();
+    // public DbSet<PartitaIVA> PartitaIVAs => Set<PartitaIVA>();
     public DbSet<OrdineDettaglio> OrdineDettagli => Set<OrdineDettaglio>();
     public DbSet<Ordine> Ordini => Set<Ordine>();
     public DbSet<Indirizzo> Indirizzi => Set<Indirizzo>();
@@ -34,20 +34,20 @@ public class ApplicationDbContext : IdentityDbContext
 
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Utente>()
-            .HasData(
-                new Utente
-                {
-                    Id =2,
-                    Nome = "Admin",
-                    Cognome = "Admin",
-                    Email = "admin@admin.com",
+        //modelBuilder.Entity<Utente>()
+        //    .HasData(
+        //        new Utente
+        //        {
+        //            Id =2,
+        //            Nome = "Admin",
+        //            Cognome = "Admin",
+        //            Email = "admin@admin.com",
 
-                    CodiceFiscale = "",
-                    Telefono = "",
-                    NotificheWA = true
-                }
-            );
+        //            CodiceFiscale = "",
+        //            Telefono = "",
+        //            NotificheWA = true
+        //        }
+        //    );
 
         //modelBuilder.Entity<Categoria>()
         //    .HasData(
@@ -70,29 +70,29 @@ public class ApplicationDbContext : IdentityDbContext
 
 
 
-        modelBuilder.Entity<Utente>(entity =>
-        {
-            entity.HasKey(e => e.Id); // PK tabella Utente
-            entity.Property(e => e.Id)
-                    .IsRequired();
-            entity.Property(e => e.Id)
-                    .ValueGeneratedOnAdd();
+        //modelBuilder.Entity<ApplicationUser>(entity => // modelBuilder.Entity<Utente>(entity
+        //{
+        //    entity.HasKey(e => e.Id); // PK tabella Utente
+        //    entity.Property(e => e.Id)
+        //            .IsRequired();
+        //    entity.Property(e => e.Id)
+        //            .ValueGeneratedOnAdd();
 
-            entity.HasIndex(e => e.Cognome); // Indice su Cognome non unico
+        //    entity.HasIndex(e => e.Cognome); // Indice su Cognome non unico
 
-        });
+        //});
 
-        modelBuilder.Entity<PartitaIVA>(entity =>
-        {
-            entity.HasOne(e => e.Utente)
-                   .WithOne(u => u.PartitaIVA)
-                   .HasForeignKey<PartitaIVA>(e => e.Id);
+        //modelBuilder.Entity<PartitaIVA>(entity =>
+        //    {
+        //        entity.HasOne(e => e.Utente) //  entity.HasOne(e => e.Utente)
+        //               .WithOne(u => u.PartitaIVA)
+        //               .HasForeignKey<PartitaIVA>(e => e.Id);
 
-            entity.Property(e => e.Id)
-                  .IsRequired();
+        //        entity.Property(e => e.Id)
+        //              .IsRequired();
 
-            entity.HasIndex(e => e.NumeroPIVA).IsUnique(); // Indice su PartitaIVA unico
-        });
+        //        entity.HasIndex(e => e.NumeroPIVA).IsUnique(); // Indice su PartitaIVA unico
+        //    });
 
         modelBuilder.Entity<Indirizzo>(entity =>
         {

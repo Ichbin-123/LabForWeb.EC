@@ -35,10 +35,11 @@ public class Indirizzo
     [Required]
     public string? InfoIndirizzo { get; set; }
 
-    public int UtenteId { get; set; }
+
+    public string? UtenteId { get; set; } // public int UtenteId { get; set; }
 
     [Required]
-    public virtual Utente? Utente { get; set; }
+    public virtual ApplicationUser? Utente { get; set; } //  public virtual Utente? Utente { get; set; }
 
     public virtual ICollection<Ordine> Ordini { get; set; } = [];
 }

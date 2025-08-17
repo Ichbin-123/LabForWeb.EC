@@ -21,7 +21,7 @@ public class PartitaIVA
     [MaxLength(100)]
     public string? PEC { get; set; }
 
-    [Required]
-    public virtual Utente?  Utente { get; set; }
+    //[Required]
+    //public virtual ApplicationUser?  Utente { get; set; } // public virtual Utente?  Utente { get; set; }
 
 }
