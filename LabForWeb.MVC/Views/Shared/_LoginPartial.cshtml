@@ -3,11 +3,31 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+@{
+    var adesso = DateTime.Now;
+    string? saluto = "";
+    if(adesso.Hour >= 6 && adesso.Hour < 13)
+    {
+        saluto="Buongiorno";
+    }
+    else if (adesso.Hour >= 13 && adesso.Hour < 18)
+    {
+        saluto="Buonpomeriggio";
+    }
+    else
+    {
+        saluto="Buonasera";
+    }
+}
+
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+        // Prendiamo con UserManager passo il valore User dei Cooky
+        var loggedUser = await UserManager.GetUserAsync(User);
+
+        <li class="nav-item">
+        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@saluto @loggedUser!.Cognome , @loggedUser!.Nome</a>
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
