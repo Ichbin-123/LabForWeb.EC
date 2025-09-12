@@ -4,19 +4,16 @@ using LabForWeb.MVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace LabForWeb.MVC.Data.Migrations
+namespace LabForWeb.MVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250717110120_ProdottoImmagine")]
-    partial class ProdottoImmagine
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,6 +37,88 @@ namespace LabForWeb.MVC.Data.Migrations
                     b.ToTable("CategoriaProdotto");
                 });
 
+            modelBuilder.Entity("LabForWeb.MVC.Data.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CodiceFiscale")
+                        .IsRequired()
+                        .HasColumnType("char(16)");
+
+                    b.Property<string>("Cognome")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("NotificheWA")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
             modelBuilder.Entity("LabForWeb.MVC.Data.Models.Categoria", b =>
                 {
                     b.Property<int>("Id")
@@ -53,29 +132,17 @@ namespace LabForWeb.MVC.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Nome")
                         .IsUnique();
 
                     b.ToTable("Categorie");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Nome = "Articoli Sportivi"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Nome = "Elettromestici"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Nome = "Abbigliamento per la coppia"
-                        });
                 });
 
             modelBuilder.Entity("LabForWeb.MVC.Data.Models.Indirizzo", b =>
@@ -113,8 +180,9 @@ namespace LabForWeb.MVC.Data.Migrations
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
 
-                    b.Property<int>("UtenteId")
-                        .HasColumnType("int");
+                    b.Property<string>("UtenteId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Via")
                         .IsRequired()
@@ -194,32 +262,6 @@ namespace LabForWeb.MVC.Data.Migrations
                     b.ToTable("OrdineDettagli");
                 });
 
-            modelBuilder.Entity("LabForWeb.MVC.Data.Models.PartitaIVA", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NumeroPIVA")
-                        .IsRequired()
-                        .HasColumnType("char(11)");
-
-                    b.Property<string>("NumeroUnico")
-                        .IsRequired()
-                        .HasColumnType("char(7)");
-
-                    b.Property<string>("PEC")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NumeroPIVA")
-                        .IsUnique();
-
-                    b.ToTable("PartitaIVAs");
-                });
-
             modelBuilder.Entity("LabForWeb.MVC.Data.Models.Prodotto", b =>
                 {
                     b.Property<int>("Id")
@@ -264,60 +306,6 @@ namespace LabForWeb.MVC.Data.Migrations
                     b.HasIndex("Visibile");
 
                     b.ToTable("Prodotti");
-                });
-
-            modelBuilder.Entity("LabForWeb.MVC.Data.Models.Utente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CodiceFiscale")
-                        .IsRequired()
-                        .HasColumnType("char(16)");
-
-                    b.Property<string>("Cognome")
-                        .IsRequired()
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
-
-                    b.Property<bool>("NotificheWA")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Telefono")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Cognome");
-
-                    b.ToTable("Utenti");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            CodiceFiscale = "",
-                            Cognome = "Admin",
-                            Email = "admin@admin.com",
-                            Nome = "Admin",
-                            NotificheWA = true,
-                            Telefono = ""
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -370,71 +358,6 @@ namespace LabForWeb.MVC.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -539,7 +462,7 @@ namespace LabForWeb.MVC.Data.Migrations
 
             modelBuilder.Entity("LabForWeb.MVC.Data.Models.Indirizzo", b =>
                 {
-                    b.HasOne("LabForWeb.MVC.Data.Models.Utente", "Utente")
+                    b.HasOne("LabForWeb.MVC.Data.ApplicationUser", "Utente")
                         .WithMany("Indirizzi")
                         .HasForeignKey("UtenteId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -578,17 +501,6 @@ namespace LabForWeb.MVC.Data.Migrations
                     b.Navigation("Prodotto");
                 });
 
-            modelBuilder.Entity("LabForWeb.MVC.Data.Models.PartitaIVA", b =>
-                {
-                    b.HasOne("LabForWeb.MVC.Data.Models.Utente", "Utente")
-                        .WithOne("PartitaIVA")
-                        .HasForeignKey("LabForWeb.MVC.Data.Models.PartitaIVA", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Utente");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -600,7 +512,7 @@ namespace LabForWeb.MVC.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("LabForWeb.MVC.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -609,7 +521,7 @@ namespace LabForWeb.MVC.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("LabForWeb.MVC.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -624,7 +536,7 @@ namespace LabForWeb.MVC.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("LabForWeb.MVC.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -633,11 +545,16 @@ namespace LabForWeb.MVC.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("LabForWeb.MVC.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("LabForWeb.MVC.Data.ApplicationUser", b =>
+                {
+                    b.Navigation("Indirizzi");
                 });
 
             modelBuilder.Entity("LabForWeb.MVC.Data.Models.Indirizzo", b =>
@@ -653,13 +570,6 @@ namespace LabForWeb.MVC.Data.Migrations
             modelBuilder.Entity("LabForWeb.MVC.Data.Models.Prodotto", b =>
                 {
                     b.Navigation("OrdineDettagli");
-                });
-
-            modelBuilder.Entity("LabForWeb.MVC.Data.Models.Utente", b =>
-                {
-                    b.Navigation("Indirizzi");
-
-                    b.Navigation("PartitaIVA");
                 });
 #pragma warning restore 612, 618
         }
