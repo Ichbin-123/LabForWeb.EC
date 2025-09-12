@@ -13,4 +13,19 @@ public static class Modelsextensions
             Nome = item.Nome
         };
     }
+    public static ProdottoModel ToProdottoModle(this Prodotto prodotto)
+    {
+        return new ProdottoModel
+        {
+            Id = prodotto.Id,
+            Nome = prodotto.Nome,
+            Descrizione = prodotto.Descrizione,
+            DescrizioneBreve = prodotto.DescrizioneBreve,
+            Giacenza = prodotto.Giacenza,
+            Prezzo = prodotto.Prezzo,
+            Visibile = prodotto.Visibile,
+            Attivo = prodotto.Attivo,
+            ImageUrl = prodotto.ImageUrl
+        };
+    }
 }

@@ -32,10 +32,13 @@ public class CategorieController : ControllerBase
     [HttpGet("{id}")] // GET /api/categorie/(un numero)
     public async Task<ActionResult<CategoriaModel>> GetById(int id)
     {
+        // Esegue una query (attraverso EF) sul database che corrisponde a:
+        // SELECT * FROM Categorie Id=76
         var categoria = await _dc.Categorie.SingleOrDefaultAsync(x => x.Id == id); // Trovami l'unico dato che corrisponde o ritorna nullo
 
         if(categoria==null)
         {
+            // Genera automaticamente una RESPONSE HTTP 404
             return NotFound();
         }
         // return data;

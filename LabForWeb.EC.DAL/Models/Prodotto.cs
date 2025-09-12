@@ -35,5 +35,6 @@ public class Prodotto
 
     public virtual ICollection<OrdineDettaglio> OrdineDettagli { get; set; } = [];
 
+    public string? ImageUrl { get; set; }
 
 }
