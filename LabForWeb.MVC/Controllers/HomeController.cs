@@ -44,6 +44,8 @@ public class HomeController : Controller
             model.Add(gallery);
         }
 
+        // recupera dati carrello
+        ViewData["ProdottiTotaliCarrello"] = DateTime.Now.Second;
         
 
         return View(model);

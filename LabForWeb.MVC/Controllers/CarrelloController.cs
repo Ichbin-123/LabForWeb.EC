@@ -8,4 +8,10 @@ public class CarrelloController : Controller
     {
         return View();
     }
+
+    [HttpPost]
+    public async Task<ActionResult> Add(int prodottoId)
+    {
+        return RedirectToAction("Index", "Home");
+    }
 }

@@ -12,8 +12,15 @@
                 <div class="card-body">
                     <h5 class="card-title">@p.Nome</h5>
                     <p class="card-text">@p.DescrizioneBreve</p>
-                    <a class="btn btn-danger" asp-controller="Prodotti" asp-action="Delete" asp-route-id="@p.Id">Elimina</a>
+                    <div class="d-flex gap-3">
+                        <a class="btn btn-danger" asp-controller="Prodotti" asp-action="Delete" asp-route-id="@p.Id">Elimina</a>
+                        <form asp-action="Add" asp-controller="Carrello" method="post">
+                            <input type="hidden" name="prodottoId" value="@p.Id" />
+                            <button type="submit" class="btn btn-primary"> Aggiungi a carrello</button>
+                        </form>
+                    </div>                    
                 </div>
+                
             </div>
 
         </div>
