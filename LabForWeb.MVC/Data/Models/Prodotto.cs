@@ -38,5 +38,7 @@ public class Prodotto
 
     public string? ImageUrl { get; set; }
 
+    public virtual ICollection<Carrello_Dettaglio> CarrelloDettaglio { get; set; } = [];
+
 
 }

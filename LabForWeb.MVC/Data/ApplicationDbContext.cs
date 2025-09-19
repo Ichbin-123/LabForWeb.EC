@@ -19,6 +19,10 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Ordine> Ordini => Set<Ordine>();
     public DbSet<Indirizzo> Indirizzi => Set<Indirizzo>();
     public DbSet<Categoria> Categorie => Set<Categoria>();
+    public DbSet<Carrello_Dettaglio> CarrelloDettagli => Set<Carrello_Dettaglio>();
+    public DbSet<Carrello> Carrelli => Set<Carrello>();
+
+
 
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //{
@@ -33,6 +37,14 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
 
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Carrello>()
+            .Property(c => c.Sconto)
+            .HasDefaultValue(0);
+
+        modelBuilder.Entity<Carrello_Dettaglio>()
+            .Property(cd => cd.Quantita)
+            .HasDefaultValue(1);
 
         //modelBuilder.Entity<Utente>()
         //    .HasData(
