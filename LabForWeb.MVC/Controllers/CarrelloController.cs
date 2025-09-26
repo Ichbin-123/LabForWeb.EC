@@ -54,7 +54,7 @@ public class CarrelloController : Controller
         // Se non esiste lo creo
         if(dettaglio == null)
         {
-            dettaglio = new Carrello_Dettaglio { Prodottto = prodotto, Quantita = 1, Carrello = carrelloAttivo};
+            dettaglio = new Carrello_Dettaglio { Prodottto = prodotto, Quantita = 1};
             carrelloAttivo.Dettaglio.Add(dettaglio);
         }
 
