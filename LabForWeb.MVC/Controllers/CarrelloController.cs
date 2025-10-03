@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using LabForWeb.MVC.Data.Models;
+using LabForWeb.MVC.Models;
+using LabForWeb.MVC.Extensions;
 
 namespace LabForWeb.MVC.Controllers;
 
@@ -17,9 +19,26 @@ public class CarrelloController : Controller
         _userManager = userManager;
         _signInManager = signInManager;
     }
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+
+        var user = await _userManager.GetUserAsync(User);
+        //var userId = user?.Id; // a21a214d-7a39-4aa9-8c38-8804a0736db9
+
+        // 2. cerco se esiste già un carrello NON chiuso dell'utente loggato
+        // Include carica in autonomia tutti i carrelli di Dettagli in JOIN con carrello
+        var carrelloAttivo = await _dc.Carrelli.Include(c => c.Dettaglio).ThenInclude(c =>c.Prodottto).SingleOrDefaultAsync(c => c.Utente == user && !c.DataChiusura.HasValue); // c => c.Utente!.Id == userId && !c.DataChiusura.HasValue
+
+
+        List<CarrelloDettaglioModel> model = [];
+        // 3. Se non c'é carrello vai avanti 
+        if(carrelloAttivo != null)
+        {
+            model = carrelloAttivo.Dettaglio.Select(s => s.ToCarrelloDettaglioModel()).ToList();
+        }
+
+
+        return View(model);
     }
 
     [HttpPost]
@@ -71,10 +90,8 @@ public class CarrelloController : Controller
         }
         catch (Exception ex)
         {
-            throw;
+            // throw;
         }
-
-
 
         return RedirectToAction("Index", "Home");
     }

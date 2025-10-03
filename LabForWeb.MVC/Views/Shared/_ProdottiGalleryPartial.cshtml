@@ -1,5 +1,9 @@
-﻿@using LabForWeb.MVC.Models;
+﻿@using LabForWeb.MVC.Data
+@using LabForWeb.MVC.Models;
+@using Microsoft.AspNetCore.Identity
 @model LabForWeb.MVC.Models.ProdottiGalleryPartialModel
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 <h3>@Model.Titolo</h3>
 <div class="row row-cols-1 row-cols-md-4 g-4">
@@ -14,10 +18,13 @@
                     <p class="card-text">@p.DescrizioneBreve</p>
                     <div class="d-flex gap-3">
                         <a class="btn btn-danger" asp-controller="Prodotti" asp-action="Delete" asp-route-id="@p.Id">Elimina</a>
-                        <form asp-action="Add" asp-controller="Carrello" method="post">
-                            <input type="hidden" name="prodottoId" value="@p.Id" />
-                            <button type="submit" class="btn btn-primary"> Aggiungi a carrello</button>
-                        </form>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <form asp-action="Add" asp-controller="Carrello" method="post">
+                                <input type="hidden" name="prodottoId" value="@p.Id" />
+                                <button type="submit" class="btn btn-primary"> Aggiungi a carrello</button>
+                            </form>
+                        }         
                     </div>                    
                 </div>
                 

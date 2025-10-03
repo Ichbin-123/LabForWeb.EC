@@ -30,5 +30,17 @@ public static class Modelsextensions
             ImageUrl = prodotto.ImageUrl
         };
     }
+
+    public static CarrelloDettaglioModel ToCarrelloDettaglioModel (this Carrello_Dettaglio item)
+    {
+        return new CarrelloDettaglioModel
+        {
+            Id = item.Id,
+            NomeProdotto = item.Prodottto!.Nome,
+            Quantita = item.Quantita,
+            Prezzo = item.Prodottto.Prezzo * item.Quantita,
+            ImmageUrl = item.Prodottto.ImageUrl
+        };
+    }
 }
 
